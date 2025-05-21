@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat - Marketplace</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .chat-header {
+      background-color: #007bff;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 20px;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .message {
+      max-width: 60%;
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      border-radius: 12px;
+      word-wrap: break-word;
+    }
+
+    .sent {
+      align-self: flex-end;
+      background-color: #007bff;
+      color: white;
+    }
+
+    .received {
+      align-self: flex-start;
+      background-color: #e0e0e0;
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ccc;
+      padding: 10px;
+      background-color: white;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin-right: 10px;
+    }
+
+    .chat-input button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .chat-input button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-header">Chat com o Comprador</div>
+
+  <div class="chat-messages" id="messages">
+    <div class="message sent">Olá! Você está disponível?</div>
+    <div class="message received">Sim! Como posso ajudar?</div>
+  </div>
+
+  <div class="chat-input">
+    <input type="text" id="inputMessage" placeholder="Digite sua mensagem..." />
+    <button onclick="enviarMensagem()">Enviar</button>
+  </div>
+
+  <script>
+    function enviarMensagem() {
+      const input = document.getElementById("inputMessage");
+      const texto = input.value.trim();
+      if (texto === "") return;
+
+      const novaMsg = document.createElement("div");
+      novaMsg.classList.add("message", "sent");
+      novaMsg.innerText = texto;
+
+      document.getElementById("messages").appendChild(novaMsg);
+      input.value = "";
+      document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+    }
+  </script>
+</body>
+</html>

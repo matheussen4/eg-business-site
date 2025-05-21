@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EG Business - Início</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #0d1117;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+    }
+    .btn-group {
+      display: flex;
+      gap: 20px;
+    }
+    button {
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .comprar {
+      background-color: #238636;
+      color: white;
+    }
+    .comprar:hover {
+      background-color: #2ea043;
+    }
+    .vender {
+      background-color: #0969da;
+      color: white;
+    }
+    .vender:hover {
+      background-color: #218bff;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bem-vindo ao EG Business</h1>
+  <p>Escolha como deseja utilizar a plataforma:</p>
+  <div class="btn-group">
+    <button class="comprar" onclick="window.location.href='painel-comprador.html'">Quero Comprar</button>
+    <button class="vender" onclick="window.location.href='selecao-nivel.html'">Quero Vender</button>
+  </div>
+</body>
+</html>

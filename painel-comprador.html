@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Painel do Comprador</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f9f9f9; margin: 0; padding: 20px; }
+    h1 { text-align: center; }
+    .servico { background: white; margin: 15px auto; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); max-width: 700px; }
+    .servico h2 { margin: 0 0 10px; }
+    .servico p { margin: 5px 0; }
+    .servico button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      border: none;
+      background: #28a745;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .servico button:hover {
+      background: #218838;
+    }
+  </style>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+  <h1>Serviços Disponíveis</h1>
+  <div id="lista-servicos"></div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "SUA_API_KEY",
+      authDomain: "SEU_AUTH_DOMAIN",
+      projectId: "SEU_PROJECT_ID",
+      storageBucket: "SEU_STORAGE_BUCKET",
+      messagingSenderId: "SEU_MESSAGING_SENDER_ID",
+      appId: "SEU_APP_ID"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    const listaServicos = document.getElementById("lista-servicos");
+
+    async function carregarServicos() {
+      try {
+        const snapshot = await db.collection("servicos").get();
+        if (snapshot.empty) {
+          listaServicos.innerHTML = "<p>Nenhum serviço encontrado.</p>";
+          return;
+        }
+
+        snapshot.forEach(doc => {
+          const servico = doc.data();
+          const div = document.createElement("div");
+          div.className = "servico";
+          div.innerHTML = `
+            <h2>${servico.titulo}</h2>
+            <p><strong>Categoria:</strong> ${servico.categoria}</p>
+            <p><strong>Descrição:</strong> ${servico.descricao}</p>
+            <p><strong>Preço:</strong> R$ ${servico.preco}</p>
+            <p><strong>Nível:</strong> ${servico.nivel}</p>
+            <button onclick="entrarEmContato('${doc.id}')">Entrar em Contato</button>
+          `;
+          listaServicos.appendChild(div);
+        });
+      } catch (error) {
+        listaServicos.innerHTML = "<p>Erro ao carregar serviços.</p>";
+      }
+    }
+
+    function entrarEmContato(idServico) {
+      // Exemplo: redirecionar para chat.html com o ID do serviço
+      window.location.href = `chat.html?servico=${idServico}`;
+    }
+
+    carregarServicos();
+  </script>
+</body>
+</html>
